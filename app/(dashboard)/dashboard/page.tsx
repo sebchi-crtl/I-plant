@@ -2,41 +2,40 @@
 
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { 
-  LayoutDashboard, 
-  Coins, 
-  AlertCircle, 
-  BarChart3, 
-  Settings, 
-  ChevronLeft,
   TrendingUp,
   Users,
   UserPlus,
   TrendingDown,
   FileText,
-  Search,
-  ChevronDown,
-  MoreVertical,
-  ArrowLeft,
-  ArrowRight
 } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 const Dashboard = () => {
   const users = [
-    { name: 'John Okafor', email: 'john.okafor@email.com', region: 'Enugu', tokens: 10, device: 'Infinix HOT 10' },
-    { name: 'Grace Paul', email: 'grace.paul@email.com', region: 'Edo', tokens: 0, device: 'Samsung Galaxy S9' },
-    { name: 'Chinedu Nwosu', email: 'chinedu.nwosu@email.com', region: 'Abia', tokens: 2, device: 'OPPO A57' },
-    { name: 'Blessing Uche', email: 'blessing.uche@email.com', region: 'Delta', tokens: 7, device: 'Huawei Y7' },
-    { name: 'Emmanuel Oladele', email: 'emma.oladele@email.com', region: 'Oyo', tokens: 12, device: 'Samsung A12' },
+    { id: 1, name: 'John Okafor', email: 'john.okafor@email.com', region: 'Enugu', tokens: 10, device: 'Infinix HOT 10' },
+    { id: 10, name: 'Grace Paul', email: 'grace.paul@email.com', region: 'Edo', tokens: 0, device: 'Samsung Galaxy S9' },
+    { id: 20, name: 'Chinedu Nwosu', email: 'chinedu.nwosu@email.com', region: 'Abia', tokens: 2, device: 'OPPO A57' },
+    { id: 30, name: 'Blessing Uche', email: 'blessing.uche@email.com', region: 'Delta', tokens: 7, device: 'Huawei Y7' },
+    { id: 40, name: 'Emmanuel Oladele', email: 'emma.oladele@email.com', region: 'Oyo', tokens: 12, device: 'Samsung A12' },
   ]
+
 
   return (
     <div className="flex h-screen w-full max-md:mb-40">
@@ -53,15 +52,51 @@ const Dashboard = () => {
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-xl font-medium">Trending Diseases</CardTitle>
-                    <p className="text-xs text-green-300">Top 3 trending diseases reported!</p>
+                    <CardTitle className="text-2xl font-semibold">Trending Diseases</CardTitle>
+                    <p className="text-sm text-gray-400">Top 3 trending diseases reported!</p>
                   </div>
-                  <TrendingUp className="h-4 w-4 text-red-400" />
+                  <TrendingUp className="h-8 w-8 text-red-400" />
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="text-center">
-                  <div className="text-3xl font-bold mb-2">34</div>
+                  <div className="mb-4">
+                  </div>
+                  <div className="flex justify-center items-center mt-5 mb-4 relative">
+                    <svg viewBox="0 0 36 36" className="w-32 h-32">
+                      <path
+                        className="stroke-[#A4EDBA]"
+                        strokeWidth="3.6"
+                        fill="none"
+                        strokeDasharray={`${48} ${100 - 48}`}
+                        d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                      <path
+                        className="stroke-[#0F7C5B]"
+                        strokeWidth="3.6"
+                        fill="none"
+
+                        strokeDasharray={`${30} ${100 - 30}`}
+                        strokeDashoffset={-48}
+                        d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                      <path
+                        className="stroke-[#DDEFC6]"
+                        strokeWidth="3.6"
+                        fill="none"
+                        strokeDasharray={`${22} ${100 - 22}`}
+                        strokeDashoffset={-(48 + 30)}
+                        d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                    </svg>
+                    <span className="absolute text-3xl font-bold">34</span>
+                  </div>
                   <div className="space-y-1 text-xs">
                     <div className="flex items-center justify-between">
                     <span className='flex gap-3'><div className='h-4 w-4 bg-[#73E2A7] rounded' />Bacterial Diseases</span>
@@ -146,7 +181,48 @@ const Dashboard = () => {
             </div>
           </div>
 
-          
+          <Card className='shadow-none border-0 bg-[#161616] text-green-100 mt-12'>
+            <CardHeader className='-mb-2'>
+              <CardTitle className='text-2xl font-semibold text-green-300'>Users</CardTitle>
+              <CardDescription>
+                <p>
+                  <span className='text-green-100'>145</span> users have been added to the system.
+                </p>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader className=' text-green-100! '>
+                  <TableRow className=' text-green-100! '>
+                    <TableHead className="w-[100px] text-green-100! ">Name</TableHead>
+                    <TableHead className='text-centerc text-green-100! '>Email</TableHead>
+                    <TableHead className='text-center text-green-100! '>Region</TableHead>
+                    <TableHead className="text-center text-green-100! ">Tokens</TableHead>
+                    <TableHead className="text-center text-green-100! ">Linked Devices</TableHead>
+                    <TableHead className="text-center text-green-100! ">Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {users.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell className="text-center">{user.email}</TableCell>
+                      <TableCell className="text-center">{user.region}</TableCell>
+                      <TableCell className="text-center">{user.tokens}</TableCell>
+                      <TableCell className="text-center">{user.device}</TableCell>
+                      <TableCell className="text-center">{user.tokens}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+                <TableFooter className='bg-neutral-950'>
+                  <TableRow>
+                    <TableCell colSpan={5}>Total</TableCell>
+                    <TableCell className="text-right">$2,500.00</TableCell>
+                  </TableRow>
+                </TableFooter>
+              </Table>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
