@@ -18,7 +18,7 @@ export default function DashboardLayoutChildren({
       {/* Foreground Content */}
       <div className="flex flex-1 z-10">
         {/* Sidebar - Only show on desktop */}
-        <div className="hidden md:block pl-16">
+        <div className="hidden md:block pl-16 2xl:pl-24">
           <Sidebar />
         </div>
     
