@@ -15,6 +15,8 @@ import {
   Crown,
   Leaf
 } from 'lucide-react'
+import { IoCheckmarkDone } from "react-icons/io5";
+import Image from 'next/image'
 
 const TokenPage = () => {
   return (
@@ -22,18 +24,21 @@ const TokenPage = () => {
       <h1 className="text-2xl font-bold text-gray-900 mb-8">Token</h1>
       
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 bg-[#B1CF5F] p-10 rounded-2xl">
         {/* Total Tokens Sold */}
-        <Card className="bg-green-100 border-green-200">
-          <CardContent className="p-6">
+        <Card className="bg-green-900 border-0 shadow-none relative">
+          <CardContent className="">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 mb-1">Total Tokens Sold</p>
-                <p className="text-3xl font-bold text-gray-900">2,300</p>
+              <div className='flex flex-col gap-6'>
+                <p className="text-[1.2rem] font-semibold text-white/80 mb-1 tracking-[.1em] ">Total Tokens Sold</p>
+                <p className="text-4xl font-bold text-white">2,300</p>
               </div>
-              <div className="flex items-center space-x-2">
-                <Leaf className="h-8 w-8 text-green-600" />
-                <Check className="h-5 w-5 text-green-600" />
+              <div className="flex items-center space-x-2  overflow-hidden ">
+                <Image className='w-36 h-36 absolute top-9 right-5' src="/dashboard/leaf.svg" alt="Leaf" width={32} height={32} />
+                
+              </div>
+              <div className="rounded-full p-2 bg-green-100 absolute -bottom-6 -right-3">
+                <IoCheckmarkDone  className=" h-15 w-15 text-green-900" />
               </div>
             </div>
           </CardContent>
