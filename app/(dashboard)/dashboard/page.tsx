@@ -14,6 +14,8 @@ import {
   UserPlus,
   TrendingDown,
   FileText,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -34,7 +36,51 @@ const Dashboard = () => {
     { id: 20, name: 'Chinedu Nwosu', email: 'chinedu.nwosu@email.com', region: 'Abia', tokens: 2, device: 'OPPO A57' },
     { id: 30, name: 'Blessing Uche', email: 'blessing.uche@email.com', region: 'Delta', tokens: 7, device: 'Huawei Y7' },
     { id: 40, name: 'Emmanuel Oladele', email: 'emma.oladele@email.com', region: 'Oyo', tokens: 12, device: 'Samsung A12' },
+    { id: 50, name: 'Fatima Ahmed', email: 'fatima.ahmed@email.com', region: 'Kano', tokens: 5, device: 'iPhone 12' },
+    { id: 60, name: 'David Okonkwo', email: 'david.okonkwo@email.com', region: 'Anambra', tokens: 8, device: 'Tecno Camon' },
+    { id: 70, name: 'Sarah Johnson', email: 'sarah.johnson@email.com', region: 'Lagos', tokens: 15, device: 'Samsung Galaxy A52' },
+    { id: 80, name: 'Michael Chen', email: 'michael.chen@email.com', region: 'Rivers', tokens: 3, device: 'Xiaomi Redmi Note' },
+    { id: 90, name: 'Aisha Bello', email: 'aisha.bello@email.com', region: 'Kaduna', tokens: 9, device: 'Infinix Note 8' },
+    { id: 100, name: 'James Wilson', email: 'james.wilson@email.com', region: 'Plateau', tokens: 6, device: 'OPPO Reno' },
+    { id: 110, name: 'Zara Mohammed', email: 'zara.mohammed@email.com', region: 'Sokoto', tokens: 11, device: 'Huawei P30' },
   ]
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [isMobile, setIsMobile] = React.useState(false)
+
+  // Check if mobile on mount and resize
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Responsive items per page
+  const itemsPerPage = isMobile ? 5 : 10
+
+  // Calculate pagination
+  const totalPages = Math.ceil(users.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentUsers = users.slice(startIndex, endIndex)
+
+  // Pagination handlers
+  const goToPage = (page: number) => {
+    setCurrentPage(page)
+  }
+
+  const goToPreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1))
+  }
+
+  const goToNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages))
+  }
 
 
   return (
@@ -181,7 +227,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <Card className='shadow-none border-0 bg-[#161616] text-green-100 mt-12'>
+          <Card className='shadow-none border-0 bg-[#161616] text-green-100 my-18'>
             <CardHeader className='-mb-2'>
               <CardTitle className='text-2xl font-semibold text-green-300'>Users</CardTitle>
               <CardDescription>
@@ -190,37 +236,186 @@ const Dashboard = () => {
                 </p>
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader className=' text-green-100! '>
-                  <TableRow className=' text-green-100! '>
-                    <TableHead className="w-[100px] text-green-100! ">Name</TableHead>
-                    <TableHead className='text-centerc text-green-100! '>Email</TableHead>
-                    <TableHead className='text-center text-green-100! '>Region</TableHead>
-                    <TableHead className="text-center text-green-100! ">Tokens</TableHead>
-                    <TableHead className="text-center text-green-100! ">Linked Devices</TableHead>
-                    <TableHead className="text-center text-green-100! ">Action</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {users.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.name}</TableCell>
-                      <TableCell className="text-center">{user.email}</TableCell>
-                      <TableCell className="text-center">{user.region}</TableCell>
-                      <TableCell className="text-center">{user.tokens}</TableCell>
-                      <TableCell className="text-center">{user.device}</TableCell>
-                      <TableCell className="text-center">{user.tokens}</TableCell>
+            <CardContent className='w-full'>
+              {/* Desktop Table View */}
+              <div className="hidden md:block">
+                <Table className='w-full'>
+                  <TableHeader className=' text-green-100! w-full '>
+                    <TableRow className=' text-green-100! w-full '>
+                      <TableHead className="w-[100px] text-green-100! ">Name</TableHead>
+                      <TableHead className='text-centerc text-green-100! w-full '>Email</TableHead>
+                      <TableHead className='text-center text-green-100! '>Region</TableHead>
+                      <TableHead className="text-center text-green-100! ">Tokens</TableHead>
+                      <TableHead className="text-center text-green-100! ">Linked Devices</TableHead>
+                      <TableHead className="text-center text-green-100! ">Action</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-                <TableFooter className='bg-neutral-950'>
-                  <TableRow>
-                    <TableCell colSpan={5}>Total</TableCell>
-                    <TableCell className="text-right">$2,500.00</TableCell>
-                  </TableRow>
-                </TableFooter>
-              </Table>
+                  </TableHeader>
+                                     <TableBody className='w-full'>
+                     {currentUsers.map((user) => (
+                       <TableRow key={user.id}>
+                         <TableCell className="font-medium">{user.name}</TableCell>
+                         <TableCell className="text-center">{user.email}</TableCell>
+                         <TableCell className="text-center">{user.region}</TableCell>
+                         <TableCell className="text-center">{user.tokens}</TableCell>
+                         <TableCell className="text-center">{user.device}</TableCell>
+                         <TableCell className="text-center">{user.tokens}</TableCell>
+                       </TableRow>
+                     ))}
+                   </TableBody>
+                  <TableFooter className='bg-neutral-950'>
+                    <TableRow>
+                      <TableCell colSpan={5}>Total</TableCell>
+                      <TableCell className="text-right">$2,500.00</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                                 </Table>
+               </div>
+
+                               {/* Pagination Controls */}
+                <div className="hidden md:flex items-center justify-between mt-6">
+                  <div className="text-sm text-green-100">
+                    Showing {startIndex + 1} to {Math.min(endIndex, users.length)} of {users.length} results
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
+                      className="border-green-600 text-green-300 hover:bg-green-900 disabled:opacity-50 p-2"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    
+                    <div className="flex items-center space-x-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        <Button
+                          key={page}
+                          variant={currentPage === page ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => goToPage(page)}
+                          className={
+                            currentPage === page
+                              ? "bg-green-600 text-white hover:bg-green-700"
+                              : "border-green-600 text-green-300 hover:bg-green-900"
+                          }
+                        >
+                          {page}
+                        </Button>
+                      ))}
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
+                      className="border-green-600 text-green-300 hover:bg-green-900 disabled:opacity-50 p-2"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+               {/* Mobile Card View */}
+               <div className="md:hidden space-y-4">
+                 {currentUsers.map((user) => (
+                  <Card key={user.id} className="bg-[#1a1a1a] border-[#333] text-green-100">
+                    <CardContent className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-green-300 text-lg">{user.name}</h3>
+                            <p className="text-sm text-green-100/80">{user.email}</p>
+                          </div>
+                          <Badge variant="secondary" className="bg-green-900 text-green-100">
+                            {user.tokens} tokens
+                          </Badge>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div>
+                            <span className="text-green-100/60">Region:</span>
+                            <p className="text-green-100">{user.region}</p>
+                          </div>
+                          <div>
+                            <span className="text-green-100/60">Device:</span>
+                            <p className="text-green-100 truncate">{user.device}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-end pt-2">
+                          <Button size="sm" variant="outline" className="border-green-600 text-green-300 hover:bg-green-900">
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+                
+                                 {/* Mobile Summary */}
+                 <Card className="bg-neutral-950 border-[#333]">
+                   <CardContent className="p-4">
+                     <div className="flex justify-between items-center">
+                       <span className="text-green-100">Total</span>
+                       <span className="text-green-300 font-semibold">$2,500.00</span>
+                     </div>
+                   </CardContent>
+                 </Card>
+
+                                   {/* Mobile Pagination Controls */}
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="text-sm text-green-100 text-center">
+                      Showing {startIndex + 1} to {Math.min(endIndex, users.length)} of {users.length} results
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={goToPreviousPage}
+                        disabled={currentPage === 1}
+                        className="border-green-600 text-green-300 hover:bg-green-900 disabled:opacity-50 p-2"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      
+                      <span className="text-green-100 px-3">
+                        Page {currentPage} of {totalPages}
+                      </span>
+                      
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={goToNextPage}
+                        disabled={currentPage === totalPages}
+                        className="border-green-600 text-green-300 hover:bg-green-900 disabled:opacity-50 p-2"
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    {/* Mobile Page Numbers */}
+                    <div className="flex items-center space-x-1 flex-wrap justify-center">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        <Button
+                          key={page}
+                          variant={currentPage === page ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => goToPage(page)}
+                          className={
+                            currentPage === page
+                              ? "bg-green-600 text-white hover:bg-green-700"
+                              : "border-green-600 text-green-300 hover:bg-green-900"
+                          }
+                        >
+                          {page}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+               </div>
             </CardContent>
           </Card>
         </div>

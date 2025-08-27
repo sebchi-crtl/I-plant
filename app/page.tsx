@@ -5,7 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/lib/auth-context";
+import { LoginInput } from "@/lib/schemas";
+import { authApi } from "@/lib/api";
 
 // Zod schema for form validation
 const loginSchema = z.object({
@@ -24,10 +27,14 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function Home() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  // const { admin, loading: authLoading } = useAuth();
-
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState("");
+  const { admin, loading: authLoading } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  
+  // React Query hooks
+  const loginMutation = authApi.useLogin();
+  
   const {
     register,
     handleSubmit,
@@ -36,33 +43,65 @@ export default function Home() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true);
-    setError("");
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && admin) {
+      router.push('/dashboard');
+    }
+  }, [admin, authLoading, router]);
 
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
+  // Show loading while checking authentication
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-500"></div>
+      </div>
+    );
+  }
+
+  // Don't render if already authenticated (will redirect)
+  if (admin) {
+    return null;
+  }
+
+  const onSubmit = async (data: LoginInput) => {
     try {
-      // Simulate API call - replace with your actual authentication logic
-      console.log("Form data:", data);
-      
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      // For demo purposes, let's assume login is successful
-      // In a real app, you would validate credentials with your backend
-      if (data.email && data.password) {
-        // Store authentication state (you might want to use a state management solution)
-        localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("userEmail", data.email);
-        
-        // Redirect to dashboard
-        router.push("/dashboard");
-      }
-    } catch (err) {
-      setError("Login failed. Please check your credentials and try again.");
-    } finally {
-      setIsLoading(false);
+      await loginMutation.mutateAsync(data);
+      router.push('/dashboard');
+    } catch (error) {
+      // Error is handled by the mutation
     }
   };
+
+  // const onSubmit = async (data: LoginFormData) => {
+  //   setIsLoading(true);
+  //   setError("");
+
+  //   try {
+  //     // Simulate API call - replace with your actual authentication logic
+  //     console.log("Form data:", data);
+      
+  //     // Simulate network delay
+  //     await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+  //     // For demo purposes, let's assume login is successful
+  //     // In a real app, you would validate credentials with your backend
+  //     if (data.email && data.password) {
+  //       // Store authentication state (you might want to use a state management solution)
+  //       localStorage.setItem("isAuthenticated", "true");
+  //       localStorage.setItem("userEmail", data.email);
+        
+  //       // Redirect to dashboard
+  //       router.push("/dashboard");
+  //     }
+  //   } catch (err) {
+  //     setError("Login failed. Please check your credentials and try again.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen w-full bg-gray-50">
@@ -88,9 +127,19 @@ export default function Home() {
               </h2>
             </div>
 
-            {error && (
+            {errors && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                {error}
+                {errors?.root?.message}
+              </div>
+            )}
+            {errors.email && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                {errors.email.message}
+              </div>
+            )}
+            {errors.password && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                {errors.password.message}
               </div>
             )}
 
@@ -100,12 +149,12 @@ export default function Home() {
                   {...register("email")}
                   type="email"
                   id="email"
-                  name="email"
+                  // name="email"
                   className={`w-full px-4 py-3 border-0 rounded-2xl focus:border-2 focus:outline-0 focus:ring-0 focus:border-green-200 font-semibold bg-gray-100 transition-colors placeholder:font-semibold ${
                     errors.email ? "border-red-200 focus:border-red-300" : ""
                   }`}
                   placeholder="Email address"
-                  disabled={isLoading}
+                  {...register('email')}
                 />
                 {errors.email && (
                   <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>
@@ -117,12 +166,12 @@ export default function Home() {
                   {...register("password")}
                   type="password"
                   id="password"
-                  name="password"
+                  // name="password"
                   className={`w-full px-4 py-3 border-0 rounded-2xl focus:border-2 focus:outline-0 focus:ring-0 focus:border-green-200 font-semibold bg-gray-100 transition-colors placeholder:font-semibold ${
                     errors.password ? "border-red-200 focus:border-red-300" : ""
                   }`}
                   placeholder="Password"
-                  disabled={isLoading}
+                  {...register('password')}
                 />
                 {errors.password && (
                   <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>
@@ -134,10 +183,10 @@ export default function Home() {
                   <input
                     {...register("remember")}
                     id="remember"
-                    name="remember"
+                    // name="remember"
                     type="checkbox"
                     className="h-4 w-4 bg-green-600! focus:ring-0 ring-0 outline-0 focus:outline-0 border-0 rounded"
-                    disabled={isLoading}
+                    {...register('remember')}
                   />
                   <label htmlFor="remember" className="ml-2 block font-semibold text-sm text-gray-700">
                     keep me signed in
@@ -153,10 +202,10 @@ export default function Home() {
 
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={loginMutation.isPending}
                 className="w-full bg-green-500 hover:bg-green-300 disabled:bg-green-300 disabled:cursor-not-allowed text-[#1B512D] font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 mt-3"
               >
-                {isLoading ? "Signing in..." : "Sign in"}
+                {loginMutation.isPending ? "Signing in..." : "Sign in"}
               </button>
             </form>
           </div>
