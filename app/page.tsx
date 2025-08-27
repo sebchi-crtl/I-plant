@@ -26,6 +26,7 @@ export default function Home() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  // const { admin, loading: authLoading } = useAuth();
 
   const {
     register,
