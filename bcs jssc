@@ -1,0 +1,14 @@
+* [33md9e1333[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Update package dependencies to include @supabase/supabase-js, @tanstack/react-query, next-themes, and sonner. Upgrade zod to version 4.1.3. Modify page component to remove unused auth state variables.
+* [33mde3051c[m Enhance Dashboard functionality by adding time range filtering, data export options (CSV and PDF), and improved data handling for charts and status cards. Implement filter and sort capabilities for dryer data, along with UI updates for better user experience.
+* [33mbbf5cb5[m Update package dependencies, integrate new authentication and data fetching features, and enhance dashboard layout with improved charts and responsive design.
+* [33m4fffbc8[m Refactor Dashboard component to improve layout and functionality, adding new SensorCard and StatusCard components, and integrating a responsive navigation bar with updated icons and buttons.
+* [33mc005708[m Update package dependencies, add Radix UI components, and enhance layout with new fonts and improved styling
+* [33m5b8a840[m Update package dependencies and enhance global styles with new color variables and animations
+* [33m6993eec[m first commit
+* [33mf880d2f[m Initial commit from Create Next App
+* [33md0c7af7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Enhance TokenPage styling and layout with new components and icons. Added background color, updated card design, and integrated checkmark icon for improved visual appeal.
+* [33mc2a1ce9[m Update dashboard layout to increase sidebar padding for larger screens
+* [33m1db80c7[m Integrate form validation using Zod and React Hook Form in the login component. Update package dependencies to include @hookform/resolvers and zod for improved form handling and validation.
+* [33m5e2b9ae[m Add recharts library and update dashboard component with user table and improved styling
+* [33mba671b5[m Update dependencies and enhance styling with new CSS variables and animations. Added Radix UI components, class variance authority, and improved global styles for dark mode support. Integrated SidebarProvider in layout for better state management.
+* [33m9efc4b2[m Initial commit from Create Next App
