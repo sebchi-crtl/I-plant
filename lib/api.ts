@@ -30,7 +30,23 @@ export const authApi = {
         toast.success('Login successful!')
       },
       onError: (error: any) => {
-        toast.error(error.message || 'Login failed')
+        console.error('Login error:', error);
+        let errorMessage = 'Login failed';
+        
+        if (error.message) {
+          // Handle specific Supabase auth errors
+          if (error.message.includes('Invalid login credentials')) {
+            errorMessage = 'Invalid email or password. Please try again.';
+          } else if (error.message.includes('Email not confirmed')) {
+            errorMessage = 'Please confirm your email address before signing in.';
+          } else if (error.message.includes('Too many requests')) {
+            errorMessage = 'Too many login attempts. Please try again later.';
+          } else {
+            errorMessage = error.message;
+          }
+        }
+        
+        toast.error(errorMessage);
       },
     })
   },

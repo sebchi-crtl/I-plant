@@ -71,7 +71,8 @@ export default function Home() {
       await loginMutation.mutateAsync(data);
       router.push('/dashboard');
     } catch (error) {
-      // Error is handled by the mutation
+      // Error is handled by the mutation's onError callback
+      console.error('Login error:', error);
     }
   };
 

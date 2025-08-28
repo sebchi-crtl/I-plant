@@ -3,6 +3,7 @@ import Sidebar from "./_components/sidebar/sidebar";
 import MobileNavbar from "./_components/sidebar/mobile-navbar";
 import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ProtectedRoute } from "@/components/protected-route";
 
 
 export default function DashboardLayoutChildren({
@@ -13,23 +14,25 @@ export default function DashboardLayoutChildren({
   const pathname = usePathname();
   
   return (
-    <div className="flex bg-white min-h-screen w-full" style={{fontFamily: 'var(--font-poppins)'}}>
-    
-      {/* Foreground Content */}
-      <div className="flex flex-1 z-10">
-        {/* Sidebar - Only show on desktop */}
-        <div className="hidden md:block pl-16 2xl:pl-24">
-          <Sidebar />
-        </div>
-    
-        <div className="flex-1 mt-6 w-full flex items-center justify-center ">
-          {/* {pathname} */}
-          <div className="my-12 p-4 pb-20 md:pb-4 w-full max-w-7xl">{children}</div>
-        </div>
-      </div>
+    <ProtectedRoute>
+      <div className="flex bg-white min-h-screen w-full" style={{fontFamily: 'var(--font-poppins)'}}>
       
-      {/* Mobile Navigation Bar */}
-      <MobileNavbar />
-    </div>
+        {/* Foreground Content */}
+        <div className="flex flex-1 z-10">
+          {/* Sidebar - Only show on desktop */}
+          <div className="hidden md:block pl-16 2xl:pl-24">
+            <Sidebar />
+          </div>
+      
+          <div className="flex-1 mt-6 w-full flex items-center justify-center ">
+            {/* {pathname} */}
+            <div className="my-12 p-4 pb-20 md:pb-4 w-full max-w-7xl">{children}</div>
+          </div>
+        </div>
+        
+        {/* Mobile Navigation Bar */}
+        <MobileNavbar />
+      </div>
+    </ProtectedRoute>
   );
 }

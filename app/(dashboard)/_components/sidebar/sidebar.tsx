@@ -20,10 +20,7 @@ const Sidebar = () => {
   const { signOut } = useAuth();
 
   const handleSignOut = async () => {
-    alert('Sign out button clicked!'); // Temporary test
     try {
-      console.log('Sign out button clicked!');
-      console.log('Sign out function:', signOut);
       console.log('Signing out...');
       await signOut();
       console.log('Sign out successful');
