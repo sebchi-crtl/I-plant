@@ -12,10 +12,25 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "@/components/ui/button";
 import WorkingMobileNav from "./working-mobile-nav";
+import { useAuth } from "@/lib/auth-context";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const { isMobile } = useSidebarContext();
+  const { signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    alert('Sign out button clicked!'); // Temporary test
+    try {
+      console.log('Sign out button clicked!');
+      console.log('Sign out function:', signOut);
+      console.log('Signing out...');
+      await signOut();
+      console.log('Sign out successful');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -129,6 +144,25 @@ const Sidebar = () => {
                         </div>
                       ) : (
                         (() => {
+                          // Handle action-based items (like Sign Out)
+                          if ("action" in item && item.action === "signOut") {
+                            return (
+                              <MenuItem
+                                className={cn("flex items-center gap-3 py-3", collapsed && "justify-center px-3")}
+                                as="button"
+                                onClick={handleSignOut}
+                                isActive={false}
+                              >
+                                <item.icon
+                                  className="size-6 shrink-0"
+                                  aria-hidden="true"
+                                />
+                                {!collapsed && <span>{item.title}</span>}
+                              </MenuItem>
+                            );
+                          }
+
+                          // Handle URL-based items
                           const href = "url" in item ? item.url + "" : "/" + "";
 
                           return (

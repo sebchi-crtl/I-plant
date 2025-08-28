@@ -62,8 +62,8 @@ export const NAV_DATA = [
       },
       {
         title: "Sign Out",
-        url: "/dashboard/logout",
         icon: FaSignOutAlt,
+        action: "signOut",
         items: [
         ],
       },
