@@ -17,7 +17,7 @@ import { useAuth } from "@/lib/auth-context";
 const Sidebar = () => {
   const pathname = usePathname();
   const { isMobile } = useSidebarContext();
-  const { signOut } = useAuth();
+  const { signOut, admin } = useAuth();
 
   const handleSignOut = async () => {
     try {
@@ -89,7 +89,12 @@ const Sidebar = () => {
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 flex flex-col items-center gap-2">
-              <p className="font-semibold text-neutral-50">Farmer Dawn</p>
+              <p className="font-semibold text-neutral-50">
+                {admin?.first_name && admin?.last_name 
+                  ? `${admin.first_name} ${admin.last_name}`
+                  : admin?.email || 'User'
+                }
+              </p>
               <Button size="sm" className="text-xs text-green-200 border border-[#B1CF5F] hover:text-white py-1 px-4 rounded-full h-auto">
                 Edit
               </Button>
