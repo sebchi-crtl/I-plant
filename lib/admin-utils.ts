@@ -27,12 +27,12 @@ export async function createAdminUser(email: string, password: string) {
 
     // Create admin profile
     if (data.user) {
-      const { error: profileError } = await supabase
-        .from('admins')
-        .insert({
-          id: data.user.id,
-          email: data.user.email
-        });
+             const { error: profileError } = await supabase
+         .from('admins')
+         .insert({
+           id: data.user.id,
+           email: data.user.email
+         });
 
       if (profileError) {
         console.error('Error creating admin profile:', profileError);

@@ -32,6 +32,7 @@ export const NAV_DATA = [
         items: [
         ],
       },
+
       {
         title: "Token",
         url: "/dashboard/token",
