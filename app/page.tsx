@@ -120,6 +120,7 @@ export default function Home() {
         <div className="lg:w-1/2 bg-white p-8 lg:p-12 flex items-center justify-center">
           <div className="max-w-md w-full space-y-8">
             <div className="text-center lg:text-left">
+              <Image src="/login/logo.svg" alt="Logo" width={100} height={100} className="w-auto h-auto mx-auto mb-1" />
               <h1 className="text-3xl lg:text-5xl font-bold text-black mb-18 text-center">
                 Welcome back!
               </h1>
