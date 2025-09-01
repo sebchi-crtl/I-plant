@@ -202,38 +202,42 @@ const TokenPage = () => {
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-700 ">
-                    <th className="text-left py-3 px-4 text-green-200 font-medium">No.</th>
-                    <th className="text-left py-3 px-4 text-green-200 font-medium">Name</th>
-                    <th className="text-left py-3 px-4 text-green-200 font-medium">Email</th>
-                    <th className="text-left py-3 px-4 text-green-200 font-medium">Badge</th>
-                    <th className="text-left py-3 px-4 text-green-200 font-medium">Discount</th>
-                  </tr>
-                </thead>
-                <tbody className=' font-semibold'>
-                  <tr className="border-b border-gray-700">
-                    <td className="py-3 px-4 text-green-400 font-medium">1</td>
-                    <td className="py-3 px-4 text-green-200">John Okafor</td>
-                    <td className="py-3 px-4 text-green-200 underline">john.okafor@email.com</td>
-                    <td className="py-3 px-4 text-green-200">Gold</td>
-                    <td className="py-3 px-4 text-green-200">20%</td>
-                  </tr>
-                  <tr className="border-b border-gray-700">
-                    <td className="py-3 px-4 text-green-400 font-medium">2</td>
-                    <td className="py-3 px-4 text-green-200">Grace Paul</td>
-                    <td className="py-3 px-4 text-green-200 underline">grace.paul@email.com</td>
-                    <td className="py-3 px-4 text-green-200">Silver</td>
-                    <td className="py-3 px-4 text-green-200">15%</td>
-                  </tr>
-                  <tr className="border-b border-gray-700">
-                    <td className="py-3 px-4 text-green-400 font-medium">3</td>
-                    <td className="py-3 px-4 text-green-200">Chinedu Nwosu</td>
-                    <td className="py-3 px-4 text-green-200 underline">chinedu.nwosu@email.com</td>
-                    <td className="py-3 px-4 text-green-200">Bronze</td>
-                    <td className="py-3 px-4 text-green-200">10%</td>
-                  </tr>
-                </tbody>
+                                 <thead>
+                   <tr className="border-b border-gray-700 ">
+                     <th className="text-left py-3 px-4 text-green-200 font-medium">No.</th>
+                     <th className="text-left py-3 px-4 text-green-200 font-medium">Name</th>
+                     <th className="text-left py-3 px-4 text-green-200 font-medium">Email</th>
+                     <th className="text-left py-3 px-4 text-green-200 font-medium">Device</th>
+                     <th className="text-left py-3 px-4 text-green-200 font-medium">Badge</th>
+                     <th className="text-left py-3 px-4 text-green-200 font-medium">Discount</th>
+                   </tr>
+                 </thead>
+                 <tbody className=' font-semibold'>
+                   <tr className="border-b border-gray-700">
+                     <td className="py-3 px-4 text-green-400 font-medium">1</td>
+                     <td className="py-3 px-4 text-green-200">John Okafor</td>
+                     <td className="py-3 px-4 text-green-200 underline">john.okafor@email.com</td>
+                     <td className="py-3 px-4 text-green-200">Infinix HOT 10</td>
+                     <td className="py-3 px-4 text-green-200">Gold</td>
+                     <td className="py-3 px-4 text-green-200">20%</td>
+                   </tr>
+                   <tr className="border-b border-gray-700">
+                     <td className="py-3 px-4 text-green-400 font-medium">2</td>
+                     <td className="py-3 px-4 text-green-200">Grace Paul</td>
+                     <td className="py-3 px-4 text-green-200 underline">grace.paul@email.com</td>
+                     <td className="py-3 px-4 text-green-200">Samsung Galaxy S9</td>
+                     <td className="py-3 px-4 text-green-200">Silver</td>
+                     <td className="py-3 px-4 text-green-200">15%</td>
+                   </tr>
+                   <tr className="border-b border-gray-700">
+                     <td className="py-3 px-4 text-green-400 font-medium">3</td>
+                     <td className="py-3 px-4 text-green-200">Chinedu Nwosu</td>
+                     <td className="py-3 px-4 text-green-200 underline">chinedu.nwosu@email.com</td>
+                     <td className="py-3 px-4 text-green-200">OPPO A57</td>
+                     <td className="py-3 px-4 text-green-200">Bronze</td>
+                     <td className="py-3 px-4 text-green-200">10%</td>
+                   </tr>
+                 </tbody>
               </table>
             </div>
           </CardContent>

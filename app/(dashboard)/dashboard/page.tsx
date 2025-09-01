@@ -625,6 +625,7 @@ const Dashboard = () => {
                       <TableRow className='text-green-100 w-full border-[#333]'>
                         <TableHead className="w-[100px] text-green-100">Name</TableHead>
                         <TableHead className='text-center text-green-100 w-full'>Email</TableHead>
+                        <TableHead className='text-center text-green-100'>Device</TableHead>
                         <TableHead className='text-center text-green-100'>Status</TableHead>
                         <TableHead className="text-center text-green-100">Tokens</TableHead>
                         <TableHead className="text-center text-green-100">Diagnostics</TableHead>
@@ -638,6 +639,7 @@ const Dashboard = () => {
                             {user.first_name} {user.last_name}
                           </TableCell>
                           <TableCell className="text-center text-green-100">{user.email}</TableCell>
+                          <TableCell className="text-center text-green-100">{user.device_name || 'N/A'}</TableCell>
                           <TableCell className="text-center">
                             <Badge variant={user.is_active ? 'default' : 'secondary'} className={user.is_active ? 'bg-green-600' : 'bg-gray-600'}>
                               {user.is_active ? 'Active' : 'Inactive'}
@@ -755,6 +757,10 @@ const Dashboard = () => {
                          
                          <div className="grid grid-cols-2 gap-3 text-sm">
                            <div>
+                             <span className="text-green-100/60">Device:</span>
+                             <p className="text-green-100">{user.device_name || 'N/A'}</p>
+                           </div>
+                           <div>
                              <span className="text-green-100/60">Status:</span>
                              <p className="text-green-100">
                                <Badge variant={user.is_active ? 'default' : 'secondary'} className={user.is_active ? 'bg-green-600' : 'bg-gray-600'}>
@@ -762,9 +768,15 @@ const Dashboard = () => {
                                </Badge>
                              </p>
                            </div>
+                         </div>
+                         <div className="grid grid-cols-2 gap-3 text-sm">
                            <div>
                              <span className="text-green-100/60">Diagnostics:</span>
                              <p className="text-green-100">{user.total_diagnostics || 0}</p>
+                           </div>
+                           <div>
+                             <span className="text-green-100/60">Tokens:</span>
+                             <p className="text-green-100">{user.token_balance || 0}</p>
                            </div>
                          </div>
                          
